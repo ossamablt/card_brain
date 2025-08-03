@@ -1,0 +1,24 @@
+{
+  "appId": "com.memorygame.app",
+  "appName": "Memory Master",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "Haptics": {
+      "enabled": true
+    },
+    "Storage": {
+      "enabled": true
+    },
+    "StatusBar": {
+      "style": "dark"
+    }
+  },
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true
+  },
+  "ios": {
+    "contentInset": "automatic"
+  }
+}
