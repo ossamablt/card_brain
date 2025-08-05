@@ -11,6 +11,42 @@ import { playSound, triggerHaptic } from "../utils/audioManager"
 import { motion, AnimatePresence } from "framer-motion"
 import { getRandomTheme } from "../data/themes"
 
+interface Card {
+  id: number
+  pairId: number
+  theme: string
+}
+
+interface Player {
+  id: number
+  name: string
+  score: number
+  matches: number
+  combo: number
+  isAI?: boolean
+  difficulty?: string
+}
+
+interface GameData {
+  stats?: {
+    gamesPlayed: number
+    totalScore: number
+    bestTime: number
+  }
+  achievements?: any[]
+}
+
+interface GameProps {
+  players: Player[]
+  setPlayers: (players: Player[]) => void
+  gameMode: string
+  difficulty: string
+  onGameComplete: (results: any) => void
+  onBackToMenu: () => void
+  gameData: GameData | null
+  setGameData: (data: GameData) => void
+}
+
 export default function Game({
   players,
   setPlayers,
@@ -20,19 +56,19 @@ export default function Game({
   onBackToMenu,
   gameData,
   setGameData,
-}) {
+}: GameProps) {
   const [gamePhase, setGamePhase] = useState("preview")
-  const [cards, setCards] = useState([])
-  const [flippedCards, setFlippedCards] = useState([])
-  const [matchedCards, setMatchedCards] = useState([])
+  const [cards, setCards] = useState<Card[]>([])
+  const [flippedCards, setFlippedCards] = useState<number[]>([])
+  const [matchedCards, setMatchedCards] = useState<number[]>([])
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0)
   const [previewTimeLeft, setPreviewTimeLeft] = useState(0)
   const [canFlip, setCanFlip] = useState(true)
-  const [gameStartTime, setGameStartTime] = useState(null)
+  const [gameStartTime, setGameStartTime] = useState<number | null>(null)
   const [totalMoves, setTotalMoves] = useState(0)
   const [perfectGame, setPerfectGame] = useState(true)
   const [powerUps, setPowerUps] = useState({ hint: 3, shuffle: 2, extraTime: 2 })
-  const [aiMemory, setAiMemory] = useState([])
+  const [aiMemory, setAiMemory] = useState<any[]>([])
   const [selectedTheme, setSelectedTheme] = useState("animals")
   const [streakCount, setStreakCount] = useState(0)
   const [showStreakBonus, setShowStreakBonus] = useState(false)
@@ -106,7 +142,7 @@ export default function Game({
     }
   }, [cards, flippedCards, matchedCards, aiMemory, currentPlayer, canFlip])
 
-  const handleCardClick = (index) => {
+  const handleCardClick = (index: number) => {
     if (
       !canFlip ||
       gamePhase !== "playing" ||
@@ -127,7 +163,7 @@ export default function Game({
     }
   }
 
-  const handleCardFlip = (firstIndex, secondIndex, isAI) => {
+  const handleCardFlip = (firstIndex: number, secondIndex: number, isAI: boolean) => {
     setCanFlip(false)
     setTotalMoves((prev) => prev + 1)
 
@@ -187,11 +223,11 @@ export default function Game({
     }, 1000)
   }
 
-  const handleGameComplete = (finalPlayers) => {
+  const handleGameComplete = (finalPlayers: Player[]) => {
     playSound("win")
     triggerHaptic("heavy")
 
-    const gameTime = (Date.now() - gameStartTime) / 1000
+    const gameTime = (Date.now() - gameStartTime!) / 1000
     const totalScore = finalPlayers.reduce((sum, player) => sum + player.score, 0)
 
     // Check achievements

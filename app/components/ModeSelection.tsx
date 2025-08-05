@@ -4,7 +4,18 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 
-export default function ModeSelection({ onStartGame, gameData, currentStage, setCurrentStage }) {
+interface GameData {
+  unlockedStages?: number
+}
+
+interface ModeSelectionProps {
+  onStartGame: (mode: string, count?: number, difficulty?: string) => void
+  gameData: GameData | null
+  currentStage: number
+  setCurrentStage: (stage: number) => void
+}
+
+export default function ModeSelection({ onStartGame, gameData, currentStage, setCurrentStage }: ModeSelectionProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 flex items-center justify-center p-4">
       <motion.div

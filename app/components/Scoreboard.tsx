@@ -4,6 +4,25 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 
+interface Player {
+  id: number
+  name: string
+  score: number
+  matches: number
+  combo: number
+  isAI?: boolean
+}
+
+interface ScoreboardProps {
+  players: Player[]
+  currentPlayerIndex: number
+  gameMode: string
+  timeLeft: number | null
+  movesLeft: number | null
+  currentLevel: number
+  onBackToMenu: () => void
+}
+
 export default function Scoreboard({
   players,
   currentPlayerIndex,
@@ -12,8 +31,8 @@ export default function Scoreboard({
   movesLeft,
   currentLevel,
   onBackToMenu,
-}) {
-  const formatTime = (seconds) => {
+}: ScoreboardProps) {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins}:${secs.toString().padStart(2, "0")}`

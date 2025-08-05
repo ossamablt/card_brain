@@ -5,7 +5,13 @@ import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { ArrowLeft, Brain, Zap, Clock, Target } from "lucide-react"
 
-export default function DifficultySelection({ mode, onStartGame, onBack }) {
+interface DifficultySelectionProps {
+  mode: string
+  onStartGame: (difficulty: string, count?: number) => void
+  onBack: () => void
+}
+
+export default function DifficultySelection({ mode, onStartGame, onBack }: DifficultySelectionProps) {
   const isAI = mode === "ai"
 
   const aiDifficulties = [

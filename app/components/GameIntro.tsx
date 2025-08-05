@@ -4,7 +4,24 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 
-export default function GameIntro({ gameMode, modeConfig, currentLevel, onStart, onBackToMenu }) {
+interface ModeConfig {
+  rows: number
+  cols: number
+  pairs: number
+  previewTime: number
+  timeLimit?: number
+  moveLimit?: number
+}
+
+interface GameIntroProps {
+  gameMode: string
+  modeConfig: ModeConfig
+  currentLevel: number
+  onStart: () => void
+  onBackToMenu: () => void
+}
+
+export default function GameIntro({ gameMode, modeConfig, currentLevel, onStart, onBackToMenu }: GameIntroProps) {
   const getModeTitle = () => {
     switch (gameMode) {
       case "easy":

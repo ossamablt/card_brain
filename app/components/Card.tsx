@@ -3,8 +3,24 @@
 import { motion } from "framer-motion"
 import { themes } from "../data/themes"
 
-export default function GameCard({ card, index, isFlipped, isMatched, onClick, disabled, theme }) {
-  const themeData = themes[theme] || themes.animals
+interface Card {
+  id: number
+  pairId: number
+  theme: string
+}
+
+interface GameCardProps {
+  card: Card
+  index: number
+  isFlipped: boolean
+  isMatched: boolean
+  onClick: () => void
+  disabled: boolean
+  theme: string
+}
+
+export default function GameCard({ card, index, isFlipped, isMatched, onClick, disabled, theme }: GameCardProps) {
+  const themeData = themes[theme as keyof typeof themes] || themes.animals
   const cardContent = themeData.cards[card.id % themeData.cards.length]
 
   return (

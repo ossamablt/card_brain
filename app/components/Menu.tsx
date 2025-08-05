@@ -6,7 +6,22 @@ import { motion } from "framer-motion"
 import { themes } from "../data/themes"
 import { getAchievementProgress } from "../data/achievements"
 
-export default function Menu({ onStartGame, gameData, selectedTheme, setSelectedTheme }) {
+interface GameData {
+  stats?: {
+    gamesPlayed: number
+    totalScore: number
+  }
+  achievements?: any[]
+}
+
+interface MenuProps {
+  onStartGame: (mode: string) => void
+  gameData: GameData | null
+  selectedTheme: string
+  setSelectedTheme: (theme: string) => void
+}
+
+export default function Menu({ onStartGame, gameData, selectedTheme, setSelectedTheme }: MenuProps) {
   const achievementProgress = getAchievementProgress(gameData?.achievements || [])
 
   const gameModes = [
@@ -99,7 +114,7 @@ export default function Menu({ onStartGame, gameData, selectedTheme, setSelected
             >
               <Card
                 className="p-6 h-full bg-white/90 backdrop-blur-sm hover:bg-white/95 transition-all cursor-pointer border-2 hover:border-blue-300"
-                onClick={() => onStartGame(mode.id, 1, "medium", selectedTheme)}
+                onClick={() => onStartGame(mode.id)}
               >
                 <div className="text-center">
                   <div className="text-4xl mb-3">{mode.icon}</div>
@@ -132,7 +147,7 @@ export default function Menu({ onStartGame, gameData, selectedTheme, setSelected
               {["easy", "medium", "hard"].map((difficulty) => (
                 <Button
                   key={difficulty}
-                  onClick={() => onStartGame("ai", 2, difficulty, selectedTheme)}
+                  onClick={() => onStartGame("ai")}
                   className={`w-full ${
                     difficulty === "easy"
                       ? "bg-green-500 hover:bg-green-600"
@@ -158,7 +173,7 @@ export default function Menu({ onStartGame, gameData, selectedTheme, setSelected
               {[2, 3, 4].map((count) => (
                 <Button
                   key={count}
-                  onClick={() => onStartGame("multiplayer", count, "medium", selectedTheme)}
+                  onClick={() => onStartGame("multiplayer")}
                   className="bg-blue-600 hover:bg-blue-700"
                 >
                   {count}P

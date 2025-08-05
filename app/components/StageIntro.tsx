@@ -4,7 +4,21 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 
-export default function StageIntro({ stage, stageConfig, onStart, onBackToMenu }) {
+interface StageConfig {
+  rows: number
+  cols: number
+  pairs: number
+  previewTime: number
+}
+
+interface StageIntroProps {
+  stage: number
+  stageConfig: StageConfig
+  onStart: () => void
+  onBackToMenu: () => void
+}
+
+export default function StageIntro({ stage, stageConfig, onStart, onBackToMenu }: StageIntroProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
       <motion.div

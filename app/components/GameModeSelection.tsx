@@ -5,7 +5,12 @@ import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { Bot, Users, ArrowLeft, Sparkles, Zap } from "lucide-react"
 
-export default function GameModeSelection({ onSelectMode, onBack }) {
+interface GameModeSelectionProps {
+  onSelectMode: (mode: string) => void
+  onBack: () => void
+}
+
+export default function GameModeSelection({ onSelectMode, onBack }: GameModeSelectionProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-4">
       <div className="max-w-4xl mx-auto">

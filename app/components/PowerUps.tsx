@@ -4,7 +4,19 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 
-export default function PowerUps({ powerUps, onUsePowerUp, gamePhase }) {
+interface PowerUps {
+  hint: number
+  shuffle: number
+  extraTime: number
+}
+
+interface PowerUpsProps {
+  powerUps: PowerUps
+  onUsePowerUp: (type: string) => void
+  gamePhase: string
+}
+
+export default function PowerUps({ powerUps, onUsePowerUp, gamePhase }: PowerUpsProps) {
   if (gamePhase !== "playing") return null
 
   return (

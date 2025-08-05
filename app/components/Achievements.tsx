@@ -3,7 +3,18 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Card } from "@/components/ui/card"
 
-export default function Achievements({ achievements }) {
+interface Achievement {
+  id: string
+  name: string
+  description: string
+  icon: string
+}
+
+interface AchievementsProps {
+  achievements: Achievement[]
+}
+
+export default function Achievements({ achievements }: AchievementsProps) {
   if (!achievements || achievements.length === 0) return null
 
   return (

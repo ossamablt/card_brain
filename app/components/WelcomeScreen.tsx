@@ -5,7 +5,20 @@ import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { Brain, Trophy, Users, Zap, Star, Target } from "lucide-react"
 
-export default function WelcomeScreen({ onContinue, gameData }) {
+interface GameData {
+  stats?: {
+    gamesPlayed: number
+    totalScore: number
+    bestTime: number
+  }
+}
+
+interface WelcomeScreenProps {
+  onContinue: () => void
+  gameData: GameData | null
+}
+
+export default function WelcomeScreen({ onContinue, gameData }: WelcomeScreenProps) {
   const stats = gameData?.stats || {}
 
   return (

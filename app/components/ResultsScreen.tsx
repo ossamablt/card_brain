@@ -5,12 +5,35 @@ import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { Trophy, Star, Clock, Target, RotateCcw, Home, Share2 } from "lucide-react"
 
-export default function ResultsScreen({ results, onPlayAgain, onBackToMenu }) {
+interface Player {
+  id: number
+  name: string
+  score: number
+  matches: number
+  combo: number
+  isAI?: boolean
+}
+
+interface Results {
+  players: Player[]
+  totalScore: number
+  gameTime: number
+  stars?: number
+  newAchievements?: any[]
+}
+
+interface ResultsScreenProps {
+  results: Results
+  onPlayAgain: () => void
+  onBackToMenu: () => void
+}
+
+export default function ResultsScreen({ results, onPlayAgain, onBackToMenu }: ResultsScreenProps) {
   const { players, totalScore, gameTime, stars = 3, newAchievements = [] } = results
 
   const winner = players.reduce((prev, current) => (prev.score > current.score ? prev : current))
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
     return `${mins}:${secs.toString().padStart(2, "0")}`
