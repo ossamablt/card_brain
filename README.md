@@ -4,7 +4,7 @@ A comprehensive memory card game built with React, Next.js, and Capacitor for cr
 
 ## Features
 
-### 🎮 Game Modes
+### 🎮 Game Modes and levels 
 - **Easy Mode**: 2×2 grid (4 cards)
 - **Medium Mode**: 4×4 grid (16 cards) 
 - **Hard Mode**: 6×6 grid (36 cards)
